@@ -1,0 +1,48 @@
+<form #f="ngForm" (ngSubmit)="onSuscribe(f.form)">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input ngModel name="name" #name="ngModel" type="text" id="name" class="form-control" required minlength="3">
+        <div *ngIf="name.touched && name.errors">
+            <div *ngIf="name.errors.required" class="alert alert-danger">
+                name is Required
+            </div>
+            <div *ngIf="name.errors.minlength" class="alert alert-danger">
+                {{name.errors.minlength.requiredLength}} character reiquired
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input ngModel name="email" #email="ngModel" type="text" id="email" class="form-control" required minlength="10">
+        <div *ngIf="email.touched && email.errors">
+            <div *ngIf="email.errors.required" class="alert alert-danger">
+                email is Required
+            </div>
+            <div *ngIf="email.errors.minlength" class="alert alert-danger">
+                {{email.errors.minlength.requiredLength}} character reiquired
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="frequency">Frequency of email</label>
+        <select 
+            ngModel 
+            name="frequency" 
+            #frequency="ngModel" 
+            id="frequency" 
+            class="form-control" 
+            required>
+            <option value=""></option>
+            <option *ngFor="let frequency of frequencies" value="{{frequency.id}}">{{frequency.label}}</option>
+        </select>
+        <div *ngIf="frequency.touched && frequency.errors">
+            <div *ngIf="frequency.errors.required" class="alert alert-danger">
+                frequency is Required
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!f.valid">submit</button>
+</form>
+
+
+<!--[enabled]="!f.valid"-->
